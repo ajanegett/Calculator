@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 98vh;
+    background-color: aqua;
+}
+
+.Calculator {
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    height: 600px;
+}
+.Calculator > button {
+    display: block;
+}
+button {
+    width: 100px;
+    height: 50px;
+
+}
+
+div.screen {
+    width: 100%;
+    height: 200px;
+    background-color: rgb(212, 212, 212);
+}
+.clear, .delete {
+    width: 50%;
+}
