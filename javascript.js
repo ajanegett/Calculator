@@ -56,7 +56,8 @@ buttons.forEach((x) => {
       if (
         lowScreen.textContent === "" ||
         upScreen.textContent === "" ||
-        Number.isInteger(+upScreen.textContent.slice(-1))
+        Number.isInteger(+upScreen.textContent.slice(-1)) ||
+        !Number.isInteger(+lowScreen.textContent.slice(-1))
       ) {
         return;
       } else {
