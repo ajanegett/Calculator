@@ -69,6 +69,10 @@ buttons.forEach((x) => {
         );
         let secondNum = Number(lowScreen.textContent);
         let operator = upScreen.textContent[upScreen.textContent.length - 1];
+        if (secondNum === 0 && operator === "/") {
+          alert("Can't divide by zero!");
+          return;
+        }
         upScreen.textContent += lowScreen.textContent;
         lowScreen.textContent = operate(firstNum, secondNum, operator);
       }
