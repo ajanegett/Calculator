@@ -17,22 +17,53 @@ function operate(x, y, operator) {
   }
 }
 
+function clear() {
+  lowScreen.textContent = "";
+  upScreen.textContent = "";
+}
+
 buttons.forEach((x) => {
+  resulted = false;
   if (!isNaN(Number(x.textContent)) || x.textContent === ".") {
     x.addEventListener("click", () => {
       lowScreen.textContent += x.textContent;
     });
-  }
-  if (x.textContent === "Clear") {
+  } else if (x.textContent === "Clear") {
     x.addEventListener("click", () => {
-      lowScreen.textContent = "";
-      upScreen.textContent = "";
+      clear();
     });
-  }
-  if (x.textContent === "Delete") {
+  } else if (x.textContent === "Delete") {
     x.addEventListener("click", () => {
-      let text = lowScreen.textContent
-      lowScreen.textContent = text.slice(0,text.length-1)
+      let text = lowScreen.textContent;
+      lowScreen.textContent = text.slice(0, text.length - 1);
+    });
+  } else if (
+    x.textContent === "-" ||
+    x.textContent === "+" ||
+    x.textContent === "*" ||
+    x.textContent === "/"
+  ) {
+    x.addEventListener("click", () => {
+      if (lowScreen.textContent === "") {
+        return "no num before, error thus";
+      } else {
+        upScreen.textContent = lowScreen.textContent + x.textContent;
+        lowScreen.textContent = "";
+      }
+    });
+  } else {
+    x.addEventListener("click", () => {
+      let firstNum = Number(
+        upScreen.textContent
+          .split("")
+          .splice(0, upScreen.textContent.length - 1)
+          .join("")
+      );
+      let secondNum = Number(lowScreen.textContent);
+      let operator = upScreen.textContent[upScreen.textContent.length - 1];
+      upScreen.textContent += lowScreen.textContent;
+      lowScreen.textContent = operate(firstNum, secondNum, operator);
+      resulted = true;
     });
   }
 });
