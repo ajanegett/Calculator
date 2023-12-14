@@ -23,9 +23,16 @@ buttons.forEach((x) => {
       lowScreen.textContent += x.textContent;
     });
   }
-  else if (x.textContent === "Clear"){
+  if (x.textContent === "Clear") {
     x.addEventListener("click", () => {
-      lowScreen.textContent= ""
-    })
+      lowScreen.textContent = "";
+      upScreen.textContent = "";
+    });
+  }
+  if (x.textContent === "Delete") {
+    x.addEventListener("click", () => {
+      let text = lowScreen.textContent
+      lowScreen.textContent = text.slice(0,text.length-1)
+    });
   }
 });
