@@ -23,8 +23,8 @@ function clear() {
 }
 
 buttons.forEach((x) => {
-  resulted = false;
   if (!isNaN(Number(x.textContent)) || x.textContent === ".") {
+    // is number or dot (.)
     x.addEventListener("click", () => {
       lowScreen.textContent += x.textContent;
     });
@@ -53,17 +53,24 @@ buttons.forEach((x) => {
     });
   } else {
     x.addEventListener("click", () => {
-      let firstNum = Number(
-        upScreen.textContent
-          .split("")
-          .splice(0, upScreen.textContent.length - 1)
-          .join("")
-      );
-      let secondNum = Number(lowScreen.textContent);
-      let operator = upScreen.textContent[upScreen.textContent.length - 1];
-      upScreen.textContent += lowScreen.textContent;
-      lowScreen.textContent = operate(firstNum, secondNum, operator);
-      resulted = true;
+      if (
+        lowScreen.textContent === "" ||
+        upScreen.textContent === "" ||
+        Number.isInteger(+upScreen.textContent.slice(-1))
+      ) {
+        return;
+      } else {
+        let firstNum = Number(
+          upScreen.textContent
+            .split("")
+            .splice(0, upScreen.textContent.length - 1)
+            .join("")
+        );
+        let secondNum = Number(lowScreen.textContent);
+        let operator = upScreen.textContent[upScreen.textContent.length - 1];
+        upScreen.textContent += lowScreen.textContent;
+        lowScreen.textContent = operate(firstNum, secondNum, operator);
+      }
     });
   }
 });
