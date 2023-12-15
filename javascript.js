@@ -40,64 +40,71 @@ function equals(firstNum, secondNum, operator, isTheEqualsButton = true) {
   }
 }
 
+function numberFunc(x) {
+  lowScreen.textContent += x.target.textContent;
+}
+
 function clear() {
   lowScreen.textContent = "";
   upScreen.textContent = "";
 }
 
+function btnDel() {
+  let text = lowScreen.textContent;
+  lowScreen.textContent = text.slice(0, text.length - 1);
+}
+
+function forOperators(e) {
+  let x = e.target;
+  if (lowScreen.textContent === "" || !Number(lowScreen.textContent)) {
+    return;
+  } else if (!Number.isInteger(+upScreen.textContent.slice(-1))) {
+    // if not integer
+    let firstNum = Number(
+      upScreen.textContent
+        .split("")
+        .splice(0, upScreen.textContent.length - 1)
+        .join("")
+    );
+    let secondNum = Number(lowScreen.textContent);
+    let operator = upScreen.textContent.slice(-1);
+    equals(firstNum, secondNum, operator, false);
+    upScreen.textContent += x.textContent;
+  } else {
+    upScreen.textContent = lowScreen.textContent + x.textContent;
+    lowScreen.textContent = "";
+  }
+}
+
+function forEquals() {
+  let firstNum = Number(
+    upScreen.textContent
+      .split("")
+      .splice(0, upScreen.textContent.length - 1)
+      .join("")
+  );
+  let secondNum = Number(lowScreen.textContent);
+  let operator = upScreen.textContent[upScreen.textContent.length - 1];
+  equals(firstNum, secondNum, operator);
+}
+
 buttons.forEach((x) => {
   if (!isNaN(Number(x.textContent)) || x.textContent === ".") {
     // is number or dot (.)
-    x.addEventListener("click", () => {
-      lowScreen.textContent += x.textContent;
-    });
+    x.addEventListener("click", numberFunc);
   } else if (x.textContent === "Clear") {
-    x.addEventListener("click", () => {
-      clear();
-    });
+    x.addEventListener("click", clear);
   } else if (x.textContent === "Delete") {
-    x.addEventListener("click", () => {
-      let text = lowScreen.textContent;
-      lowScreen.textContent = text.slice(0, text.length - 1);
-    });
+    x.addEventListener("click", btnDel);
   } else if (
     x.textContent === "-" ||
     x.textContent === "+" ||
     x.textContent === "*" ||
     x.textContent === "/"
   ) {
-    x.addEventListener("click", () => {
-      if (lowScreen.textContent === "" || !Number(lowScreen.textContent)) {
-        return;
-      } else if (!Number.isInteger(+upScreen.textContent.slice(-1))) {
-        // if not integer
-        let firstNum = Number(
-          upScreen.textContent
-            .split("")
-            .splice(0, upScreen.textContent.length - 1)
-            .join("")
-        );
-        let secondNum = Number(lowScreen.textContent);
-        let operator = upScreen.textContent.slice(-1);
-        equals(firstNum, secondNum, operator, false);
-        upScreen.textContent += x.textContent;
-      } else {
-        upScreen.textContent = lowScreen.textContent + x.textContent;
-        lowScreen.textContent = "";
-      }
-    });
+    x.addEventListener("click", forOperators);
   } else {
-    x.addEventListener("click", () => {
-      let firstNum = Number(
-        upScreen.textContent
-          .split("")
-          .splice(0, upScreen.textContent.length - 1)
-          .join("")
-      );
-      let secondNum = Number(lowScreen.textContent);
-      let operator = upScreen.textContent[upScreen.textContent.length - 1];
-      equals(firstNum, secondNum, operator);
-    });
+    x.addEventListener("click", forEquals);
   }
 });
 
@@ -110,3 +117,45 @@ function setTime() {
 }
 setTime();
 setInterval(setTime, 1000);
+
+document.addEventListener("keydown", (e) => {
+  console.log(e.key);
+  if (!isNaN(Number(e.key)) || e.key === ".") {
+    console.log(e.key);
+    lowScreen.textContent += e.key;
+  }
+  if (
+    e.key === "-" ||
+    e.key === "+" ||
+    e.key === "*" ||
+    (e.shiftKey && e.key === "/")
+  ) {
+    if (lowScreen.textContent === "" || !Number(lowScreen.textContent)) {
+      return;
+    } else if (!Number.isInteger(+upScreen.textContent.slice(-1))) {
+      // if not integer
+      let firstNum = Number(
+        upScreen.textContent
+          .split("")
+          .splice(0, upScreen.textContent.length - 1)
+          .join("")
+      );
+      let secondNum = Number(lowScreen.textContent);
+      let operator = upScreen.textContent.slice(-1);
+      equals(firstNum, secondNum, operator, false);
+      upScreen.textContent += e.key;
+    } else {
+      upScreen.textContent = lowScreen.textContent + e.key;
+      lowScreen.textContent = "";
+    }
+  }
+  if (e.key === "Enter") {
+    forEquals();
+  }
+  if (e.key === "Backspace") {
+    btnDel();
+  }
+  if (e.key === "c") {
+    clear()
+  }
+});
