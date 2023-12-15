@@ -50,6 +50,7 @@ div.screen {
   display: grid;
   flex-direction: column;
   padding: 10px;
+  gap: 10px;
 }
 .clear,
 .delete {
@@ -57,7 +58,7 @@ div.screen {
 }
 
 .upper {
-  font-family: Technor_ExtraLight, monospace;
+  font-family: Technor_Light, monospace;
   font-size: 1.5em;
   height: 20px;
 }
@@ -65,14 +66,20 @@ div.screen {
   font-size: 2em;
   height: 20px;
 }
-.time, .calcxx {
+.timer, .calcxx {
   align-self:flex-end;
-  font-family: Technor_Light;
+  font-family: Technor_ExtraLight;
   font-size: 1em;
+  text-align: right;
 }
 .screen > div {
   padding: 10px;
 }
 .calcxx {
   justify-self:right;
+}
+.timer {
+  margin-top: 0;
+  padding: 4px;
+  height: 30px;
 }

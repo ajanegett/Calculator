@@ -100,3 +100,13 @@ buttons.forEach((x) => {
     });
   }
 });
+
+const timer = document.querySelector(".timer");
+timer.textContent = "";
+
+function setTime() {
+  const d = new Date();
+  timer.textContent = d.toLocaleTimeString();
+}
+setTime();
+setInterval(setTime, 1000);
