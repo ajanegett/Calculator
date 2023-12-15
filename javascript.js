@@ -67,7 +67,7 @@ buttons.forEach((x) => {
     x.textContent === "/"
   ) {
     x.addEventListener("click", () => {
-      if (lowScreen.textContent === "") {
+      if (lowScreen.textContent === "" || !Number(lowScreen.textContent)) {
         return;
       } else if (!Number.isInteger(+upScreen.textContent.slice(-1))) { // if not integer
         let firstNum = Number(
