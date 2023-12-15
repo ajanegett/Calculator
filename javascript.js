@@ -21,7 +21,8 @@ function equals(firstNum, secondNum, operator, isTheEqualsButton = true) {
     lowScreen.textContent === "" ||
     upScreen.textContent === "" ||
     Number.isInteger(+upScreen.textContent.slice(-1)) ||
-    !Number.isInteger(+lowScreen.textContent.slice(-1))
+    !Number.isInteger(+lowScreen.textContent.slice(-1)) ||
+    !Number(lowScreen.textContent)
   ) {
     return;
   } else {
@@ -31,11 +32,10 @@ function equals(firstNum, secondNum, operator, isTheEqualsButton = true) {
     }
     if (isTheEqualsButton) {
       upScreen.textContent += lowScreen.textContent;
-      lowScreen.textContent = operate(firstNum, secondNum, operator);  
-    }
-    else {
-      upScreen.textContent = operate(firstNum, secondNum, operator) 
-      lowScreen.textContent = ""
+      lowScreen.textContent = operate(firstNum, secondNum, operator);
+    } else {
+      upScreen.textContent = operate(firstNum, secondNum, operator);
+      lowScreen.textContent = "";
     }
   }
 }
@@ -69,7 +69,8 @@ buttons.forEach((x) => {
     x.addEventListener("click", () => {
       if (lowScreen.textContent === "" || !Number(lowScreen.textContent)) {
         return;
-      } else if (!Number.isInteger(+upScreen.textContent.slice(-1))) { // if not integer
+      } else if (!Number.isInteger(+upScreen.textContent.slice(-1))) {
+        // if not integer
         let firstNum = Number(
           upScreen.textContent
             .split("")
@@ -78,8 +79,8 @@ buttons.forEach((x) => {
         );
         let secondNum = Number(lowScreen.textContent);
         let operator = upScreen.textContent.slice(-1);
-        equals(firstNum,secondNum,operator,false)
-        upScreen.textContent += x.textContent
+        equals(firstNum, secondNum, operator, false);
+        upScreen.textContent += x.textContent;
       } else {
         upScreen.textContent = lowScreen.textContent + x.textContent;
         lowScreen.textContent = "";
