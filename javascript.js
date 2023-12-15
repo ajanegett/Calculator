@@ -16,6 +16,29 @@ function operate(x, y, operator) {
     return x / y;
   }
 }
+function equals(firstNum, secondNum, operator, isTheEqualsButton = true) {
+  if (
+    lowScreen.textContent === "" ||
+    upScreen.textContent === "" ||
+    Number.isInteger(+upScreen.textContent.slice(-1)) ||
+    !Number.isInteger(+lowScreen.textContent.slice(-1))
+  ) {
+    return;
+  } else {
+    if (secondNum === 0 && operator === "/") {
+      alert("Can't divide by zero!");
+      return;
+    }
+    if (isTheEqualsButton) {
+      upScreen.textContent += lowScreen.textContent;
+      lowScreen.textContent = operate(firstNum, secondNum, operator);  
+    }
+    else {
+      upScreen.textContent = operate(firstNum, secondNum, operator) 
+      lowScreen.textContent = ""
+    }
+  }
+}
 
 function clear() {
   lowScreen.textContent = "";
@@ -45,22 +68,8 @@ buttons.forEach((x) => {
   ) {
     x.addEventListener("click", () => {
       if (lowScreen.textContent === "") {
-        return "no num before, error thus";
-      } else {
-        upScreen.textContent = lowScreen.textContent + x.textContent;
-        lowScreen.textContent = "";
-      }
-    });
-  } else {
-    x.addEventListener("click", () => {
-      if (
-        lowScreen.textContent === "" ||
-        upScreen.textContent === "" ||
-        Number.isInteger(+upScreen.textContent.slice(-1)) ||
-        !Number.isInteger(+lowScreen.textContent.slice(-1))
-      ) {
         return;
-      } else {
+      } else if (!Number.isInteger(+upScreen.textContent.slice(-1))) { // if not integer
         let firstNum = Number(
           upScreen.textContent
             .split("")
@@ -68,14 +77,25 @@ buttons.forEach((x) => {
             .join("")
         );
         let secondNum = Number(lowScreen.textContent);
-        let operator = upScreen.textContent[upScreen.textContent.length - 1];
-        if (secondNum === 0 && operator === "/") {
-          alert("Can't divide by zero!");
-          return;
-        }
-        upScreen.textContent += lowScreen.textContent;
-        lowScreen.textContent = operate(firstNum, secondNum, operator);
+        let operator = upScreen.textContent.slice(-1);
+        equals(firstNum,secondNum,operator,false)
+        upScreen.textContent += x.textContent
+      } else {
+        upScreen.textContent = lowScreen.textContent + x.textContent;
+        lowScreen.textContent = "";
       }
+    });
+  } else {
+    x.addEventListener("click", () => {
+      let firstNum = Number(
+        upScreen.textContent
+          .split("")
+          .splice(0, upScreen.textContent.length - 1)
+          .join("")
+      );
+      let secondNum = Number(lowScreen.textContent);
+      let operator = upScreen.textContent[upScreen.textContent.length - 1];
+      equals(firstNum, secondNum, operator);
     });
   }
 });
