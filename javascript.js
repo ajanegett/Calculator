@@ -5,15 +5,15 @@ let buttons = document.querySelectorAll("button");
 
 function operate(x, y, operator) {
   if (operator == "+") {
-    return x + y;
+    return (x + y).toFixed(2);
   }
   if (operator == "-") {
-    return x - y;
+    return (x - y).toFixed(2);
   }
   if (operator == "*") {
-    return x * y;
+    return (x * y).toFixed(2);
   } else {
-    return x / y;
+    return (x / y).toFixed(2);
   }
 }
 function equals(firstNum, secondNum, operator, isTheEqualsButton = true) {
