@@ -156,6 +156,6 @@ document.addEventListener("keydown", (e) => {
     btnDel();
   }
   if (e.key === "c") {
-    clear()
+    clear();
   }
 });

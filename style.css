@@ -68,8 +68,9 @@ div.screen {
   font-size: 2em;
   height: 20px;
 }
-.timer, .calcxx {
-  align-self:flex-end;
+.timer,
+.calcxx {
+  align-self: flex-end;
   font-family: Technor_ExtraLight;
   font-size: 1em;
   text-align: right;
@@ -78,7 +79,7 @@ div.screen {
   padding: 10px;
 }
 .calcxx {
-  justify-self:right;
+  justify-self: right;
 }
 .timer {
   margin-top: 0;
@@ -100,7 +101,7 @@ img {
 footer {
   color: white;
   border: 1px solid rgb(0, 42, 255);
-  text-align:center;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
